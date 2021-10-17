@@ -1,9 +1,10 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase/fb";
-import { Table } from "antd";
+import { List, Avatar } from "antd";
 import firebase from "firebase/compat";
 import dayjs from "dayjs";
+import { AuthContext } from "../context/AuthContext";
 
 // import QuerySnapshot = firebase.firestore.QuerySnapshot;
 type DocumentData = Partial<firebase.firestore.DocumentData>;
@@ -35,26 +36,29 @@ const BlogList: FC = () => {
     })();
   }, []);
 
-  const columns = [
-    {
-      title: "제목",
-      dataIndex: "title",
-      key: "title",
-    },
-    {
-      title: "작성자",
-      dataIndex: "writer",
-      key: "writer",
-    },
-    {
-      title: "작성일",
-      dataIndex: "createdAt",
-      key: "createdAt",
-    },
-  ];
   console.log(blogs);
+  const user = useContext(AuthContext);
   if (isLoading) return <div>loading...</div>;
-  return <>{!!blogs && <Table columns={columns} dataSource={blogs} />}</>;
+  // return <>{!!blogs && <Table columns={columns} dataSource={blogs} />}</>;
+  return (
+    <>
+      {!!blogs && (
+        <List
+          itemLayout="horizontal"
+          dataSource={blogs}
+          renderItem={(item) => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={<Avatar src={user?.photoURL} />}
+                title={<a href="https://ant.design">{item.title}</a>}
+                description={item.content}
+              />
+            </List.Item>
+          )}
+        />
+      )}
+    </>
+  );
 };
 
 export default BlogList;

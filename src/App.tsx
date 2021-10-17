@@ -14,6 +14,7 @@ const Login = loadable(() => import("./pages/Login"));
 const SignUp = loadable(() => import("./pages/SignUp"));
 const Blog = loadable(() => import("./pages/Blog"));
 const Profile = loadable(() => import("./pages/Profile"));
+const Catalog = loadable(() => import("./pages/Catalog"));
 const { Footer, Content } = Layout;
 
 const App: FC = () => {
@@ -28,6 +29,9 @@ const App: FC = () => {
                 <Switch>
                   <Route path="/blog">
                     <Blog />
+                  </Route>
+                  <Route exact path="/catalog">
+                    <Catalog />
                   </Route>
                   <Route exact path="/profile">
                     <Profile />

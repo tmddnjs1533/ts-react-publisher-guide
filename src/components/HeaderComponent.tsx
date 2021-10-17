@@ -41,6 +41,9 @@ const HeaderComponent: FC = () => {
             <Menu.Item>
               <Link to="/blog/list">Blog</Link>
             </Menu.Item>
+            <Menu.Item>
+              <Link to="/catalog">Catalog</Link>
+            </Menu.Item>
           </Menu>
         </Col>
 
